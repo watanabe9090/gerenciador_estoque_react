@@ -1,0 +1,1 @@
+Frontend do projeto de Gerência de estoque, feito em React
