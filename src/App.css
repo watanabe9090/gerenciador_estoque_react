@@ -1,0 +1,28 @@
+.Content {
+    margin: 10px 10px 10px 0px;
+    width: 70%;
+    float: left;
+
+}
+.TopMenu {
+    padding: 0 1% 2% 1%;
+    margin-bottom: 0px;
+
+}
+.SideMenu {
+    margin: 10px 0 10px 10px;
+    float: left;
+    width: 20%;
+}
+.Footer {
+    position: relative;
+    float: left;
+    width: 100%;
+    bottom: 0%;
+    margin: 0 0 0% 0;
+    padding: 20px 50px 20px 50px;
+    background-color: #171717;
+}
+.App {
+    margin: 5px 0px 0px 0px;
+}
