@@ -5,10 +5,11 @@ import { Form } from 'semantic-ui-react';
 import genderOptions from '../../util/genderOptions';
 import apiCliente from '../../service/individuals/apiClientes';
 
-import Endereco from '../../components/Endereco';
-import Contato from '../../components/Contato';
+import Endereco from '../../components/Endereco/Endereco';
+import Contato from '../../components/Contato/Contato';
 import FormularioHeader from '../../components/Formulario/FormularioHeader/FormularioHeader';
-
+import {InputInfoNome, InputInfoSobrenome, InputInfoCpf, InputInfoSexo} from '../../domain_files/Cliente/ClienteInputInfo';
+import NotFound from '../../components/NotFound/NotFound';
 
 const ClienteAlteracao = (props) => {
   const history = useHistory();
@@ -16,7 +17,7 @@ const ClienteAlteracao = (props) => {
 
   useEffect(() => {
     apiCliente.getSingle(props.match.params.id)
-      .then(response => setCliente(response));
+      .then(response => setCliente(response))
   }, []);
 
   const handleInputs = (event) => {
@@ -32,34 +33,11 @@ const ClienteAlteracao = (props) => {
     history.push('/clientes');
   }
 
-  const renderSexo = () => {
-    if(cliente.sexo !== undefined) {
-      return<Form.Select
-        name='sexo'
-        selection
-        label='Sexo'
-        options={genderOptions}
-        onChange={(event, data) => setCliente({...cliente, sexo:data.value})}
-        defaultValue={cliente.sexo}
-      />
-    }
-  } 
-
-  const renderContato= () => {
-    if(cliente.contato !== undefined) {
-      return <Contato reference={cliente.contato}/>
-    }
-  }
-
-  const renderEndereco = () => {
-    if(cliente.endereco !== undefined) {
-      return <Endereco reference={cliente.endereco} />
-    }
-  }
-
-  return (
+  const render = () => {
+    if(cliente.contato) {
+    return (
     <React.Fragment>
-      <Form>
+      <Form onSubmit={handleSubmit}>
 			<FormularioHeader
         icon='address book'
         header='Cadastro de Clientes'
@@ -68,37 +46,51 @@ const ClienteAlteracao = (props) => {
       <Form.Group widths='equal'>
 			<Form.Input 
 				name='nome'
-				label='Nome' 
+				label={InputInfoNome} 
 				placeholder='Hana'
 				value={cliente.nome}
 				onChange={handleInputs} 
 			/>
       <Form.Input 
 				name='sobrenome'
-				label='Sobrenome' 
+				label={InputInfoSobrenome}
 				placeholder='Pereira'
 				value={cliente.sobrenome}
 				onChange={handleInputs} 
 			/>
 
-      {renderSexo()}
+      <Form.Select
+        name='sexo'selection
+        label={InputInfoSexo}
+        options={genderOptions}
+        onChange={(event, data) => setCliente({...cliente, sexo:data.value})}
+        defaultValue={cliente.sexo}
+      />
 
       </Form.Group>
       <Form.Group widths='equal'>
       <Form.Input 
         name='cpf'
-        label='CPF' 
+        label={InputInfoCpf}
         placeholder='1231231232'
         value={cliente.cpf}
         onChange={handleInputs} 
       />
       </Form.Group>
-      {renderEndereco()}
-			{renderContato()}
-			<Form.Button primary onClick={handleSubmit}>Atualizar</Form.Button>
+      <Endereco reference={cliente.endereco} />
+			<Contato reference={cliente.contato}/> 
+			<Form.Button primary>Atualizar</Form.Button>
       </Form>
     </React.Fragment>
-  );
+    )} else {
+    return (
+    <React.Fragment>
+      <NotFound />
+    </React.Fragment>
+    )}
+  }
+
+  return render();
 }
 
 export default ClienteAlteracao;

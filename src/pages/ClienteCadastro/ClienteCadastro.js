@@ -4,15 +4,20 @@ import { Form } from 'semantic-ui-react';
 
 import apiClientes from '../../service/individuals/apiClientes';
 
-import Endereco from '../../components/Endereco';
-import Contato from '../../components/Contato';
+import Endereco from '../../components/Endereco/Endereco';
+import Contato from '../../components/Contato/Contato';
 import FormularioHeader from '../../components/Formulario/FormularioHeader/FormularioHeader';
+
+import {InputInfoNome, InputInfoSobrenome, InputInfoCpf, InputInfoSexo} from '../../domain_files/Cliente/ClienteInputInfo';
 
 import genderOptions from '../../util/genderOptions';
 
 const CadastroCliente = () => {
 	const history = useHistory();
 	const [cliente, setCliente] = useState({
+		nome: '',
+		sobrenome: '',
+		cpf: '',
 		sexo: genderOptions[0].value,
 		endereco:{}, 
 		contato:{}
@@ -41,14 +46,14 @@ const CadastroCliente = () => {
 		<Form.Group widths='equal'>
 		<Form.Input 
 			name='nome'
-			label='Nome' 
+			label={InputInfoNome} 
 			placeholder='Alberto'
 			value={cliente.nome}
 			onChange={handleInputs} 
 		/>
 		<Form.Input 
 			name='sobrenome' 
-			label='Sobrenome' 
+			label={InputInfoSobrenome} 
 			placeholder='Pereira' 
 			value={cliente.sobrenome}
 			onChange={handleInputs}
@@ -56,7 +61,7 @@ const CadastroCliente = () => {
 		<Form.Select
 			name='sexo'
 			selection
-			label='Sexo'
+			label={InputInfoSexo}
 			options={genderOptions}
 			onChange={(event, data) => setCliente({...cliente, sexo:data.value})}
 			defaultValue={genderOptions[0].value}
@@ -65,7 +70,7 @@ const CadastroCliente = () => {
 		<Form.Group widths='equal'>
 		<Form.Input 
 			name='cpf'
-			label='CPF' 
+			label={InputInfoCpf} 
 			placeholder='Alberto'
 			value={cliente.cpf}
 			onChange={handleInputs} 
