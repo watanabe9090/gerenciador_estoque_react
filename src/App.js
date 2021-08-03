@@ -26,7 +26,9 @@ import ColaboradorCadastroPage from './pages/ColaboradorCadastro/ColaboradorCada
 import ColaboradorAlteracaoPage from './pages/ColaboradorAlteracao/ColaboradorAlteracao';
 import ColaboradorDetalhesPage from './pages/ColaboradorDetalhes/ColaboradorDetalhes';
 
+import ItemEstocadoPage from './pages/ItemEstocado/ItemEstocado';
 import ItemEstocadoCadastro from './pages/ItemEstocadoCadastro/ItemEstocadoCadastro';
+import ItemEstocadoDetalhes from './pages/ItemEstocadoDetalhes/ItemEstocadoDetalhes';
 
 import FornecedorPage from './pages/Fornecedor/Fornecedor';
 import FornecedorCadastroPage from './pages/FornecedorCadastro/FornecedorCadastro';
@@ -49,7 +51,7 @@ import RecebimentoPage from './pages/Recebimentos/index';
 
 import UsuarioPage from './pages/Usuarios/index';
 
-import NotFoundPage from './pages/NotFound/NotFound';
+import NotFoundPage from './pages/NotFound/NotFoundPage';
 
 
 function App() {
@@ -82,7 +84,9 @@ function App() {
             <Route path="/fornecedores/:id" exact component={FornecedorAlteracaoPage} />
             <Route path="/fornecedores/detalhes/:id" exact component={FornecedorDetalhesPage} />
 
+            <Route path="/itens_estocados/" exact component={ItemEstocadoPage} />
             <Route path="/itens_estocados/cadastro" exact component={ItemEstocadoCadastro} />
+            <Route path="/itens_estocados/detalhes/:id" exact component={ItemEstocadoDetalhes} />
 
             <Route path="/locais" exact component={LocalPage} />
             <Route path="/locais/cadastro" exact component={LocalCadastroPage} />
