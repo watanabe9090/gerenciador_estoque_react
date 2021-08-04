@@ -2,7 +2,7 @@
 
 <p align="center">
 Repositório dedicado ao Frontend em <b>desenvolvimento</b> da aplicação
-<a href="https://github.com/watanabe9090/gerenciado_estoque_spring"> 
+<a href="https://github.com/watanabe9090/gerenciador_estoque_spring"> 
 gerenciado_estoque_spring
 </a>
 onde é feito um software que abrange as funcionalidades básicas de um gerenciador de estoque
