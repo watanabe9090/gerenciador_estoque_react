@@ -9,6 +9,10 @@ export function handleResponse(response) {
 }
 
 export function handleError(error) {
+  console.log(error);
+  if(error.response) {
+    return error.response;
+  }
   if (error.data) {
     return error.data;
   }

@@ -1,12 +1,9 @@
 import React, {useState, useEffect} from 'react';
-
 import apiClientes from '../../service/individuals/apiClientes';
-
 import ListagemHeader from '../../components/Listagem/ListagemHeader/ListagemHeader';
 import ListagemBody from '../../components/Listagem/ListagemBody/ListagemBody';
 import ListagemBodyTelefones from '../../components/Listagem/ListagemBody/ListagemBodyTelefones/ListagemBodyTelefones';
 import ListagemBodyOpcoes from '../../components/Listagem/ListagemBody/ListagemBodyOpcoes/ListagemBodyOpcoes'
-
 import sexos from '../../util/sexos';
 
 const Cliente = () => {

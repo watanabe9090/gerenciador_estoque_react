@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import {Form, Label} from 'semantic-ui-react';
-import Endereco from '../../components/Endereco';
-import Contato from '../../components/Contato';
+import Endereco from '../../components/Endereco/Endereco';
+import Contato from '../../components/Contato/Contato';
 
 import apiFornecedores from '../../service/individuals/apiFornecedores';
 import FormularioHeader from '../../components/Formulario/FormularioHeader/FormularioHeader';
+import { InputInfoNomeFantasia, InputInfoRazaoSocial, InputInfoCnpj } from '../../domain_files/Fornecedor/FornecedorInputInfo';
 
 
 const FornecedorCadastro = () => {
@@ -39,7 +40,7 @@ const FornecedorCadastro = () => {
 			<Form.Group widths='equal'>
 			<Form.Input 
 				name='nomeFantasia'
-				label='Nome Fantasia' 
+				label={InputInfoNomeFantasia} 
 				placeholder='Hana Flores'
 				value={fornecedor.nomeFantasia}
 				onChange={handleInputs}
@@ -47,7 +48,7 @@ const FornecedorCadastro = () => {
 			/>
 			<Form.Input 
 				name='razaoSocial'
-				label='Razão Social' 
+				label={InputInfoRazaoSocial} 
 				placeholder='Hana Pereira'
 				value={fornecedor.razaoSocial}
 				onChange={handleInputs}
@@ -55,11 +56,11 @@ const FornecedorCadastro = () => {
 				/>
 			<Form.Input 
 				name='cnpj'
-				label='CNPJ' 
+				label={InputInfoCnpj}
 				placeholder='Hana Pereira'
 				value={fornecedor.cnpj}
 				onChange={handleInputs}
-				error={"Nome Inválido"}
+				error={null}
 				/>
 			</Form.Group>
 			<Endereco reference={fornecedor.endereco} />

@@ -9,11 +9,12 @@ import Contato from '../../components/Contato/Contato';
 import FormularioHeader from '../../components/Formulario/FormularioHeader/FormularioHeader';
 
 import {InputInfoNome, InputInfoSobrenome, InputInfoCpf, InputInfoSexo} from '../../domain_files/Cliente/ClienteInputInfo';
-
+import validate from '../../validations/Formularios/Cliente/clienteValidation';
 import genderOptions from '../../util/genderOptions';
 
 const CadastroCliente = () => {
 	const history = useHistory();
+	const [erros, setErrors] = useState({});
 	const [cliente, setCliente] = useState({
 		nome: '',
 		sobrenome: '',
@@ -30,6 +31,7 @@ const CadastroCliente = () => {
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
+		setErrors(validate(cliente))
 		apiClientes.post({...cliente})
 			.then(response => console.log(response));
 		history.push('/clientes');
@@ -37,7 +39,7 @@ const CadastroCliente = () => {
 
 	return (
 	<React.Fragment>
-	<Form>
+	<Form onSubmit={handleSubmit}>
 		<FormularioHeader
 			icon='address book'
 			header='Cadastro de Clientes'
@@ -49,7 +51,8 @@ const CadastroCliente = () => {
 			label={InputInfoNome} 
 			placeholder='Alberto'
 			value={cliente.nome}
-			onChange={handleInputs} 
+			onChange={handleInputs}
+			error={null}
 		/>
 		<Form.Input 
 			name='sobrenome' 
@@ -78,7 +81,7 @@ const CadastroCliente = () => {
 		</Form.Group>
 		<Endereco reference={cliente.endereco} />
 		<Contato reference={cliente.contato}/>
-		<Form.Button primary onClick={handleSubmit}>Cadastrar</Form.Button>
+		<Form.Button primary submit>Cadastrar</Form.Button>
 	</Form>
 	</React.Fragment>
 	)

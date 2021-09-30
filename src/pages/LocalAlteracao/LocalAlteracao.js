@@ -27,11 +27,11 @@ const LocalAlteracao = (props) => {
     history.push('/locais');
   }
 
-  const renderEndereco = () => {
-    if(local.endereco !== undefined) {
-      return <Endereco reference={local.endereco} />
-    }
-  }
+  // const renderEndereco = () => {
+  //   if(local.endereco !== undefined) {
+  //     return <Endereco reference={local.endereco} />
+  //   }
+  // }
 
   return (
     <React.Fragment>
@@ -48,7 +48,7 @@ const LocalAlteracao = (props) => {
 				value={local.nome}
 				onChange={handleInputs} 
 			/>
-      {renderEndereco()}
+      {local.endereco && <Endereco reference={local.endereco} />}
 			<Form.Button primary onClick={handleSubmit}>Atualizar</Form.Button>
     </Form>
     </React.Fragment>

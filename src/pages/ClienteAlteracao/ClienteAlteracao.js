@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router';
+import { useHistory, Redirect } from 'react-router';
 import { Form } from 'semantic-ui-react';
+
 
 import genderOptions from '../../util/genderOptions';
 import apiCliente from '../../service/individuals/apiClientes';
@@ -14,6 +15,7 @@ import NotFound from '../../components/NotFound/NotFound';
 const ClienteAlteracao = (props) => {
   const history = useHistory();
   const [cliente, setCliente] = useState({});
+  const [redirect, setRedirect] = useState(null);
 
   useEffect(() => {
     apiCliente.getSingle(props.match.params.id)
@@ -30,7 +32,7 @@ const ClienteAlteracao = (props) => {
     console.log(cliente)
     apiCliente.put({...cliente})
       .then(response => console.log(response));
-    history.push('/clientes');
+    history.push('/clientes/redirect');
   }
 
   const render = () => {

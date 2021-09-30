@@ -1,7 +1,7 @@
 import './App.css';
 import 'semantic-ui-css/semantic.min.css'
 import { Segment } from 'semantic-ui-react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 
 
 import SideMenu from './components/SideMenu/SideMenu';
@@ -52,7 +52,7 @@ import RecebimentoPage from './pages/Recebimentos/index';
 import UsuarioPage from './pages/Usuarios/index';
 
 import NotFoundPage from './pages/NotFound/NotFoundPage';
-
+import VendaPage from './pages/Venda/Venda';
 
 function App() {
   return (
@@ -70,6 +70,7 @@ function App() {
             <Route path="/" exact component={HomePage} />
 
             <Route path="/clientes" exact component={ClientePage} />
+            <Redirect path="/clientes/redirect" to="/clientes" />
             <Route path="/clientes/cadastro" exact component={ClienteCadastroPage} />
             <Route path="/clientes/:id" exact component={ClienteAlteracaoPage} />
             <Route path="/clientes/detalhes/:id" exact component={ClienteDetalhesPage} />
@@ -102,6 +103,8 @@ function App() {
             <Route path="/setores/cadastro" exact component={SetorCadastroPage} />
             <Route path="/setores/:id" exact component={SetorAlteracaoPage} />
             <Route path="/setores/detalhes/:id" exact component={SetorDetalhesPage} />
+
+            <Route path="/vendas/cadastro" exact component={VendaPage} />
 
             <Route path="/recebimentos" exact component={RecebimentoPage} />
             <Route path="/usuarios" exact component={UsuarioPage} />

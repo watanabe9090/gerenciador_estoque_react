@@ -1,49 +1,54 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router';
-import { Form } from 'semantic-ui-react';
+import { Form, Popup, Label, Icon } from 'semantic-ui-react';
 
 import apiFornecedores from '../../service/individuals/apiFornecedores';
 
-import Endereco from '../../components/Endereco';
-import Contato from '../../components/Contato';
+import Endereco from '../../components/Endereco/Endereco';
+import Contato from '../../components/Contato/Contato';
 import FormularioHeader from '../../components/Formulario/FormularioHeader/FormularioHeader';
+
+import { validate } from '../../validations/Formularios/Fornecedor/fornecedorValidations';
+
+import { InputInfoNomeFantasia, InputInfoRazaoSocial, InputInfoCnpj } from '../../domain_files/Fornecedor/FornecedorInputInfo';
+
+import NotFound from '../../components/NotFound/NotFound'
 
 const FornecedorAlteracao = (props) => {
   const history = useHistory();
   const [fornecedor, setFornecedor] = useState({});
+  const [errors, setErrors] = useState({});
 
   useEffect(async ()=>{
     apiFornecedores.getSingle(props.match.params.id)
-      .then(response => setFornecedor(response));
+      .then(response => setFornecedor(response))
+      .catch(error => console.log(error));
   }, []);
+
 
   const handleInputs = (event) => {
     const {name, value} = event.target;
     setFornecedor({...fornecedor, [name]:value});
   }
 
+  useEffect(() => {
+    if(errors.initialize && Object.keys(errors).length == 1) {
+      apiFornecedores.put({...fornecedor})
+        .then(response => console.log(response));
+      history.push('/fornecedores');
+    }
+  },[errors]);
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    apiFornecedores.put({...fornecedor})
-      .then(response => console.log(response));
-    history.push('/fornecedores');
+    setErrors(validate(fornecedor));
   }
 
-  const renderContato= () => {
-    if(fornecedor.contato !== undefined) {
-      return <Contato reference={fornecedor.contato}/>
-    }
-  }
-
-  const renderEndereco = () => {
-    if(fornecedor.endereco !== undefined) {
-      return <Endereco reference={fornecedor.endereco} />
-    }
-  }
-
-  return (
+  const render = () => {
+    if(fornecedor.contato) {
+    return(
     <React.Fragment>
-      <Form>
+      <Form onSubmit={handleSubmit}>
 			<FormularioHeader 
 				icon='handshake outline' 
 				header='Alterar Fornecedor' 
@@ -52,31 +57,38 @@ const FornecedorAlteracao = (props) => {
       <Form.Group widths='equal'>
 			<Form.Input 
 				name='nomeFantasia'
-				label='Nome Fantasia' 
+				label={InputInfoNomeFantasia}
 				placeholder='Hana Flores'
 				value={fornecedor.nomeFantasia}
-				onChange={handleInputs} 
+				onChange={handleInputs}
+        error={errors.nomeFantasia}
 			/>
 			<Form.Input 
 				name='razaoSocial'
-				label='Razão Social' 
+				label={InputInfoRazaoSocial}
 				placeholder='Hana Pereira'
 				value={fornecedor.razaoSocial}
-				onChange={handleInputs} 
+				onChange={handleInputs}
+        error={errors.razaoSocial}
 			/>
 			<Form.Input 
 				name='cnpj'
-				label='CNPJ' 
+				label={InputInfoCnpj}
 				placeholder='Hana Pereira'
 				value={fornecedor.cnpj}
 				onChange={handleInputs} 
+        error={errors.cnpj}
 			/>
 			</Form.Group>
-      {renderEndereco()}
-			{renderContato()}
-			<Form.Button primary onClick={handleSubmit}>Atualizar</Form.Button>
+      {fornecedor.endereco && <Endereco reference={fornecedor.endereco} />}
+      {fornecedor.contato && <Contato reference={fornecedor.contato}/>}
+			<Form.Button primary submit>Atualizar</Form.Button>
       </Form>
     </React.Fragment>
-  );
+    )} else {
+      return <NotFound />
+    }
+  }
+  return render()
 }
 export default FornecedorAlteracao;
