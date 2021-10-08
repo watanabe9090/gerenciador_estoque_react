@@ -13,7 +13,7 @@ const Cliente = () => {
 		key: id,
 		cells: [
 			nome + ' ' + sobrenome,
-			contato.email,
+			contato.email || '',
 			cpf,
 			sexos[sexo],
 			<ListagemBodyTelefones fixo={contato.telefoneFixo} celular={contato.telefoneCelular} />,
