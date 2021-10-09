@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import { Form } from 'semantic-ui-react';
 
@@ -14,7 +14,11 @@ import genderOptions from '../../util/genderOptions';
 
 const CadastroCliente = () => {
 	const history = useHistory();
-	const [erros, setErrors] = useState({});
+	const [errors, setErrors] = useState({
+		nome: null,
+		sobrenome: null,
+		cpf: null,
+	});
 	const [cliente, setCliente] = useState({
 		nome: '',
 		sobrenome: '',
@@ -24,6 +28,14 @@ const CadastroCliente = () => {
 		contato:{}
 	});
 
+	useEffect(() => {
+		console.log(errors);
+		if(errors.ok) {
+			apiClientes.post({...cliente})
+				.then(response => console.log(response));
+			history.push('/clientes/redirect');
+		}
+	}, [errors])
 	const handleInputs = (event) => {
 		const {name, value} = event.target;
 		setCliente({...cliente, [name]: value});
@@ -31,10 +43,7 @@ const CadastroCliente = () => {
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		setErrors(validate(cliente))
-		apiClientes.post({...cliente})
-			.then(response => console.log(response));
-		history.push('/clientes');
+		setErrors(validate(cliente));
 	}
 
 	return (
@@ -48,17 +57,18 @@ const CadastroCliente = () => {
 		<Form.Group widths='equal'>
 		<Form.Input 
 			name='nome'
-			label={InputInfoNome} 
 			placeholder='Alberto'
+			label={InputInfoNome} 
 			value={cliente.nome}
+			error={errors.nome}
 			onChange={handleInputs}
-			error={null}
 		/>
 		<Form.Input 
 			name='sobrenome' 
-			label={InputInfoSobrenome} 
 			placeholder='Pereira' 
+			label={InputInfoSobrenome} 
 			value={cliente.sobrenome}
+			error={errors.sobrenome}
 			onChange={handleInputs}
 		/>
 		<Form.Select
@@ -69,15 +79,17 @@ const CadastroCliente = () => {
 			onChange={(event, data) => setCliente({...cliente, sexo:data.value})}
 			defaultValue={genderOptions[0].value}
 		/>
-		</Form.Group>
-		<Form.Group widths='equal'>
 		<Form.Input 
 			name='cpf'
-			label={InputInfoCpf} 
 			placeholder='Alberto'
+			label={InputInfoCpf} 
 			value={cliente.cpf}
+			error={errors.cpf}
 			onChange={handleInputs} 
 		/>
+		</Form.Group>
+		<Form.Group widths='equal'>
+		
 		</Form.Group>
 		<Endereco reference={cliente.endereco} />
 		<Contato reference={cliente.contato}/>
