@@ -29,7 +29,6 @@ const CadastroCliente = () => {
 	});
 
 	useEffect(() => {
-		console.log(errors);
 		if(errors.ok) {
 			apiClientes.post({...cliente})
 				.then(response => console.log(response));

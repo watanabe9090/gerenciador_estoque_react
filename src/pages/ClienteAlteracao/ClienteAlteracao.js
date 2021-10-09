@@ -4,7 +4,9 @@ import { Form } from 'semantic-ui-react';
 
 
 import genderOptions from '../../util/genderOptions';
-import apiCliente from '../../service/individuals/apiClientes';
+import apiClientes from '../../service/individuals/apiClientes';
+
+import validate from '../../validations/Formularios/Cliente/clienteValidation';
 
 import Endereco from '../../components/Endereco/Endereco';
 import Contato from '../../components/Contato/Contato';
@@ -15,12 +17,25 @@ import NotFound from '../../components/NotFound/NotFound';
 const ClienteAlteracao = (props) => {
   const history = useHistory();
   const [cliente, setCliente] = useState({});
+  const [errors, setErrors] = useState({
+		nome: null,
+		sobrenome: null,
+		cpf: null,
+	});
   const [redirect, setRedirect] = useState(null);
 
   useEffect(() => {
-    apiCliente.getSingle(props.match.params.id)
+    apiClientes.getSingle(props.match.params.id)
       .then(response => setCliente(response))
   }, []);
+
+  useEffect(() => {
+		if(errors.ok) {
+			apiClientes.put({...cliente})
+				.then(response => console.log(response));
+			history.push('/clientes/redirect');
+		}
+	}, [errors]);
 
   const handleInputs = (event) => {
     const {name, value} = event.target;
@@ -29,10 +44,7 @@ const ClienteAlteracao = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(cliente)
-    apiCliente.put({...cliente})
-      .then(response => console.log(response));
-    history.push('/clientes/redirect');
+		setErrors(validate(cliente));
   }
 
   const render = () => {
@@ -49,15 +61,15 @@ const ClienteAlteracao = (props) => {
 			<Form.Input 
 				name='nome'
 				label={InputInfoNome} 
-				placeholder='Hana'
 				value={cliente.nome}
+        error={errors.nome}
 				onChange={handleInputs} 
 			/>
       <Form.Input 
 				name='sobrenome'
 				label={InputInfoSobrenome}
-				placeholder='Pereira'
 				value={cliente.sobrenome}
+        error={errors.sobrenome}
 				onChange={handleInputs} 
 			/>
 
@@ -68,17 +80,15 @@ const ClienteAlteracao = (props) => {
         onChange={(event, data) => setCliente({...cliente, sexo:data.value})}
         defaultValue={cliente.sexo}
       />
-
-      </Form.Group>
-      <Form.Group widths='equal'>
       <Form.Input 
         name='cpf'
         label={InputInfoCpf}
-        placeholder='1231231232'
         value={cliente.cpf}
+        error={errors.cpf}
         onChange={handleInputs} 
-      />
+        />
       </Form.Group>
+      
       <Endereco reference={cliente.endereco} />
 			<Contato reference={cliente.contato}/> 
 			<Form.Button primary>Atualizar</Form.Button>
