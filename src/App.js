@@ -81,6 +81,7 @@ function App() {
             <Route path="/colaboradores/detalhes/:id" exact component={ColaboradorDetalhesPage} />
 
             <Route path="/fornecedores" exact component={FornecedorPage} />
+            <Redirect path="/fornecedores/redirect" to="/fornecedores" />
             <Route path="/fornecedores/cadastro" exact component={FornecedorCadastroPage} />
             <Route path="/fornecedores/:id" exact component={FornecedorAlteracaoPage} />
             <Route path="/fornecedores/detalhes/:id" exact component={FornecedorDetalhesPage} />
