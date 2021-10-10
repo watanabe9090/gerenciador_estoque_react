@@ -13,17 +13,18 @@ const Fornecedor = () => {
   const renderBodyRow = ({id, nomeFantasia, razaoSocial, contato, cnpj}, index) => ({
     key: id,
     cells: [
-      nomeFantasia,
-      razaoSocial,
-      contato.email,
-      cnpj,
+      nomeFantasia || '',
+      razaoSocial || '',
+      contato.email || '',
+      cnpj || '',
       <ListagemBodyTelefones fixo={contato.telefoneFixo} celular={contato.telefoneCelular} />,
       <ListagemBodyOpcoes path='/fornecedores' id={id} />
     ]
   });
 
   useEffect(() => {
-    apiFornecedores.getAll().then(response => setFornecedores(response.content))
+    apiFornecedores.getAll()
+      .then(response => setFornecedores(response.content))
   }, []);
 
   return(
