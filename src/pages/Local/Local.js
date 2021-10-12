@@ -12,10 +12,10 @@ const Local = () => {
 	const renderBodyRow = ({id, nome, endereco}, index) => ({
 		key: id,
 		cells: [
-			nome,
-			endereco.logradouro,
-			endereco.numero,
-			endereco.bairro,
+			nome || '',
+			endereco.logradouro || '',
+			endereco.numero|| '',
+			endereco.bairro|| '',
 			<ListagemBodyOpcoes path='/locais' id={id} />
 		],
 	})
