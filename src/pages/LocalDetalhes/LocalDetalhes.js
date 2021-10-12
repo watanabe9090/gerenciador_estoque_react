@@ -18,14 +18,14 @@ const LocalDetalhes = (props) => {
         cells: [field, value ]
       });
       const tableData = [
-        {field:"ID:" ,value:local.id},
-        {field:"Nome", value:local.nome},
-        {field:"CEP", value:local.endereco.cep},
-        {field:"Localidade", value:local.endereco.localidade},
-        {field:"Bairro", value:local.endereco.bairro},
-        {field:"Número", value:local.endereco.numero},
-        {field:"Logradouro", value:local.endereco.logradouro},
-        {field:"Complemento", value:local.endereco.complemento}
+        {field:"ID:" ,value:local.id || ''},
+        {field:"Nome", value:local.nome|| ''},
+        {field:"CEP", value:local.endereco.cep|| ''},
+        {field:"Localidade", value:local.endereco.localidade|| ''},
+        {field:"Bairro", value:local.endereco.bairro|| ''},
+        {field:"Número", value:local.endereco.numero|| ''},
+        {field:"Logradouro", value:local.endereco.logradouro|| ''},
+        {field:"Complemento", value:local.endereco.complemento|| ''}
       ];
       return (
         <React.Fragment>
