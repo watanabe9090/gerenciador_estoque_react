@@ -18,9 +18,9 @@ const MarcaDetalhes = (props) => {
         cells: [field, value ]
       });
       const tableData = [
-        {field:"ID:" ,value:marca.id},
-        {field:"Nome", value:marca.nome},
-        {field:"Fornecedor", value:marca.fornecedor.nomeFantasia}
+        {field:"ID:" ,value:marca.id || ''},
+        {field:"Nome", value:marca.nome || ''},
+        {field:"Fornecedor", value:marca.fornecedor.nomeFantasia || ''}
       ];
       return (
         <React.Fragment>

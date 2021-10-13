@@ -4,6 +4,7 @@ import { useHistory } from 'react-router';
 
 import apiMarcas from '../../service/individuals/apiMarcas';
 import FormularioHeader from '../../components/Formulario/FormularioHeader/FormularioHeader';
+import { InputInfoNome } from '../../domain_files/Marca/MarcaInputInfo';
 
 const MarcaAlteracao = (props) => {
   const history = useHistory();
@@ -26,7 +27,7 @@ const MarcaAlteracao = (props) => {
     <>
       <Form.Input 
         name='nome'
-        label='Nome da Marca'
+        label={InputInfoNome}
         value={marca.nome}
         onChange={event => setMarca({...marca, nome: event.target.value})}
       />

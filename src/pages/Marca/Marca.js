@@ -13,8 +13,8 @@ const Marca = () => {
 	const renderBodyRow = ({id, nome, fornecedor}, index) => ({
 		key: id,
 		cells: [
-			nome,
-			fornecedor.nomeFantasia,
+			nome || '',
+			fornecedor.nomeFantasia || '',
 			<ListagemBodyOpcoes path='/marcas' id={id} />
 		],
 	})
