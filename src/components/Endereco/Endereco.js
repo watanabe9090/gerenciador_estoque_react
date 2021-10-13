@@ -13,6 +13,7 @@ const Endereco = (props) => {
 	const [numero, setNumero] = useState(props.reference.numero || '');
 
 	useEffect(() => {
+		props.reference.cep = cep;
 		props.reference.logradouro = logradouro;
 		props.reference.bairro = bairro;
 		props.reference.localidade = localidade;
@@ -25,7 +26,7 @@ const Endereco = (props) => {
 		if(input.length === 8){
 			axios.get(`https://viacep.com.br/ws/${cep}/json/`)
 			.then(response => {
-				setCep(response.data.cep);
+				//setCep(response.data.cep);
 				setLogradouro(response.data.logradouro);
 				setBairro(response.data.bairro);
 				setLocalidade(response.data.localidade);
