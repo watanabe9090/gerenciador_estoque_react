@@ -1,6 +1,6 @@
 import { InputInfo } from "../InputInfo/InputInfo";
 
-const InputInfoCep = <InputInfo label='CEP' popup='' />
+const InputInfoCep = <InputInfo label='CEP' popup='Código de Endereçamento Postal (sem traços ou pontuações), EX:01011100 ' />
 const InputInfoLogradouro = <InputInfo label='Logradouro' popup='Ruas, Avenidas, ...' />
 const InputInfoBairro = <InputInfo label='Bairro' popup='' />
 const InputInfoLocalidade = <InputInfo label='Localidade' popup='Município em que se encontra' />
