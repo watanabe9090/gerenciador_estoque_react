@@ -5,7 +5,7 @@ import { Form } from 'semantic-ui-react';
 import apiLocais from '../../service/individuals/apiLocais';
 
 import FormularioHeader from '../../components/Formulario/FormularioHeader/FormularioHeader';
-import Endereco from '../../components/Endereco';
+import Endereco from '../../components/Endereco/Endereco';
 
 const LocalAlteracao = (props) => {
   const history = useHistory();
