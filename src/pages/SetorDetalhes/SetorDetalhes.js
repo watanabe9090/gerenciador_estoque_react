@@ -18,9 +18,9 @@ const SetorDetalhes = (props) => {
         cells: [field, value ]
       });
       const tableData = [
-        {field:"ID:" ,value:setor.id},
-        {field:"Nome", value:setor.nome},
-        {field:"Local", value:setor.local.nome}
+        {field:"ID:" ,value:setor.id || ''},
+        {field:"Nome", value:setor.nome || ''},
+        {field:"Local", value:setor.local.nome || ''}
       ];
       return (
         <React.Fragment>

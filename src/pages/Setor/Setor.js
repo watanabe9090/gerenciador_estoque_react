@@ -13,8 +13,8 @@ const Setor = () => {
 	const renderBodyRow = ({id, nome, local}, index) => ({
 		key: id,
 		cells: [
-			nome,
-			local.nome,
+			nome || '',
+			local.nome || '',
 			<ListagemBodyOpcoes path='/marcas' id={id} />
 		],
 	})
