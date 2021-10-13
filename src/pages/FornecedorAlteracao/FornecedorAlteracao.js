@@ -32,7 +32,7 @@ const FornecedorAlteracao = (props) => {
   }
 
   useEffect(() => {
-    if(errors.initialize && Object.keys(errors).length == 1) {
+    if(errors.ok == true) {
       apiFornecedores.put({...fornecedor})
         .then(response => console.log(response));
       history.push('/fornecedores');

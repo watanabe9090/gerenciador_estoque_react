@@ -36,7 +36,8 @@ const FornecedorCadastro = () => {
 	}
 
 	useEffect(() => {
-		if(fornecedor.ok == true) {
+		console.log(errors);
+		if(errors.ok == true) {
 			apiFornecedores.post({...fornecedor})
 				.then(response => console.log(response));
 			history.push('/fornecedores');
