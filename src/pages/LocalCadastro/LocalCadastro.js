@@ -5,11 +5,13 @@ import { Form } from 'semantic-ui-react';
 import apiLocais from '../../service/individuals/apiLocais';
 
 import FormularioHeader from '../../components/Formulario/FormularioHeader/FormularioHeader';
-import Endereco from '../../components/Endereco';
+import Endereco from '../../components/Endereco/Endereco';
+import {  InputInfoNome } from '../../domain_files/Local/LocalInputInfo';
 
 const LocalCadastro = () => {
 	const history = useHistory();
 	const [local, setLocal] = useState({
+		nome: '',
 		endereco:{}
 	});
 
@@ -35,7 +37,7 @@ const LocalCadastro = () => {
 				/>
 				<Form.Input 
 					name='nome'
-					label='Nome'
+					label={InputInfoNome}
 					value={local.nome}
 					onChange={handleInputs}
 				/>
