@@ -6,6 +6,7 @@ import apiLocais from '../../service/individuals/apiLocais';
 
 import FormularioHeader from '../../components/Formulario/FormularioHeader/FormularioHeader';
 import Endereco from '../../components/Endereco/Endereco';
+import { InputInfoNome } from '../../domain_files/Local/LocalInputInfo';
 
 const LocalAlteracao = (props) => {
   const history = useHistory();
@@ -43,7 +44,7 @@ const LocalAlteracao = (props) => {
       />
       <Form.Input 
 				name='nome'
-				label='Nome' 
+				label={InputInfoNome} 
 				placeholder='Reservatório A'
 				value={local.nome}
 				onChange={handleInputs} 
