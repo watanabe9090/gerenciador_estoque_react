@@ -15,7 +15,7 @@ const Setor = () => {
 		cells: [
 			nome || '',
 			local.nome || '',
-			<ListagemBodyOpcoes path='/marcas' id={id} />
+			<ListagemBodyOpcoes path='/setores' id={id} />
 		],
 	})
 
