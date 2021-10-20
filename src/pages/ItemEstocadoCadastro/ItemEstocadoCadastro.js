@@ -11,13 +11,16 @@ import apiItensEstocados from '../../service/individuals/apiItensEstocados';
 
 import { InputInfoNome, InputInfoCodigo, InputInfoFornecedor, InputInfoMarca,
 InputInfoLocal, InputInfoSetor, InputInfoUnidade, InputInfoDataFabricacao, InputInfoDataVencimento,
-InputInfoPrecoCompra, InputInfoPrecoVenda, InputInfoDescricao, InputInfoDescricaoReduzida } from '../../domain_files/ItemEstocado/ItemEstocadoInputInfo';
+InputInfoPrecoCompra, InputInfoPrecoVenda, InputInfoDescricao, InputInfoDescricaoReduzida, InputInfoQuantidade } from '../../domain_files/ItemEstocado/ItemEstocadoInputInfo';
 
 import { validacao } from '../../validations/Formularios/ItemEstocado/itemEstocadoValidations';
 import Mensagem from '../../components/Mensagem/Mensagem';
 
 
 const ItemEstocadoCadastro = () => {
+  const [errors, setErrors] = useState({
+
+  });
   const [fornecedores, setFornecedores] = useState();
   const [currentFornecedor, setCurrentFornecedor] = useState(-1);
   const [locais, setLocais] = useState([]);
@@ -25,7 +28,18 @@ const ItemEstocadoCadastro = () => {
   const [marcas, setMarcas] = useState([]);
   const [setores, setSetores] = useState([]);
 
-  const [form, setForm] = useState({})
+  const [form, setForm] = useState({
+    codigo:'',
+    nome: '',
+    unidade: '',
+    precoCompra: 0.0,
+    precoVenda: 0.0,
+    quantidade: 0,
+    descricaoReduzida: '',
+    descricao: '',
+    marcaId: -1,
+    setorId: -1
+  })
   
   useEffect(() => {
     buscarFornecedores();
@@ -51,6 +65,7 @@ const ItemEstocadoCadastro = () => {
       ));
       setFornecedores(data);
     })
+    .catch(e=> console.log(e));
   }
 
   const buscarMarcas = () => {
@@ -71,6 +86,7 @@ const ItemEstocadoCadastro = () => {
       ))
       setLocais(data);
     })
+    .catch(e=> console.log(e));
   }
 
   const buscarSetores = () => {
@@ -105,7 +121,7 @@ const ItemEstocadoCadastro = () => {
           width='5' 
           name='codigo'
           label={InputInfoCodigo} 
-          placeholder='Magnus Adulto carne'
+          placeholder='8003360115'
           value={form.codigo}
           onChange={handleChanges} 
         />
@@ -119,7 +135,7 @@ const ItemEstocadoCadastro = () => {
         />
       </Form.Group>
 
-      <Form.Group>
+      <Form.Group widths="equal">
       <Form.Field>
         {InputInfoFornecedor}
         <Dropdown 
@@ -133,16 +149,13 @@ const ItemEstocadoCadastro = () => {
       <Form.Field>
         {InputInfoMarca}
         <Dropdown 
-          placeholder='Selecione uma marca do fornecedor'
+          placeholder='Selecione uma marca '
           search
           selection
           options={marcas}
           onChange={(event, data) => setForm({...form, marcaId:data.value})}
         />
       </Form.Field>
-      </Form.Group>
-
-      <Form.Group>
       <Form.Field>
         {InputInfoLocal}
         <Dropdown 
@@ -167,7 +180,7 @@ const ItemEstocadoCadastro = () => {
       </Form.Group>
 
       <Form.Group>
-        <Form.Field width='3'>
+        <Form.Field width='2'>
           {InputInfoUnidade}
           <Input
             name='unidade' 
@@ -199,9 +212,6 @@ const ItemEstocadoCadastro = () => {
             onChange={handleChanges} 
           />
         </Form.Field>
-      </Form.Group>
-
-      <Form.Group>
       <Form.Field>
         {InputInfoDataFabricacao}
         <Input
@@ -224,14 +234,25 @@ const ItemEstocadoCadastro = () => {
         />
       </Form.Field>
       </Form.Group>
-
-      <Form.Input 
-        name='descricaoReduzida'
-        label={InputInfoDescricaoReduzida} 
-        placeholder='22,90'
-        value={form.descricaoReduzida}
-        onChange={handleChanges} 
-      />
+      <Form.Group>
+        <Form.Input 
+          name='quantidade'
+          placeholder='100'
+          width='3'
+          label={InputInfoQuantidade}
+          value={form.quantidade}
+          onChange={handleChanges}
+        />
+        <Form.Input 
+          name='descricaoReduzida'
+          placeholder='Magnus adulto Sabor Carne e Frango'
+          width='13'
+          label={InputInfoDescricaoReduzida} 
+          value={form.descricaoReduzida}
+          onChange={handleChanges} 
+        />
+      </Form.Group>
+      
       <Form.TextArea 
         name='descricao'
         label={InputInfoDescricao}
@@ -240,7 +261,6 @@ const ItemEstocadoCadastro = () => {
       />
       <Form.Button primary >Cadastrar</Form.Button>
       </Form>
-      <Mensagem />
     </React.Fragment>
   );
 }

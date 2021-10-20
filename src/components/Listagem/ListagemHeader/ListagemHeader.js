@@ -11,14 +11,14 @@ const ListagemHeader = (props) => {
         <Header.Content>{props.content}</Header.Content>
         <Divider />
       </Header>
-      <Input 
+      {/* <Input 
         placeholder='Procurar...'
         onChange={event => setInput(event.target.value)} 
         value={input}
       />
       <Button icon color='black'>
         <Icon name='search'/>
-      </Button>
+      </Button> */}
     </React.Fragment>
   );
 }

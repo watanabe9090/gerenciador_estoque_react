@@ -9,19 +9,13 @@ import { InputInfoFornecedor, InputInfoNome } from '../../domain_files/Marca/Mar
 const MarcaCadastro = () => {
   const history = useHistory();
   const [fornecedores, setFornecedores] = useState([]);
-  const [fornecedorMarcas, setFornecedorMarcas] = useState([]);
   const [marca, setMarca] = useState({fornecedorId:1});
 
   const handleSubmit = (event) => {
     event.preventDefault();
     apiMarcas.post({...marca})
       .then(response => console.log(response));
-    history.push('/marcas');
-  }
-
-  const buscarMarcas = () => {
-    apiMarcas.getByParam("fornecedorId", marca.fornecedorId)
-      .then(response => setFornecedorMarcas(response));
+    history.push('/marcas/redirect');
   }
 
   useEffect(() => {
@@ -50,7 +44,6 @@ const MarcaCadastro = () => {
           options={fornecedores}
           onChange={(event, data) => {
             setMarca({...marca, fornecedorId:data.value});
-            buscarMarcas();
           }}
         />
       </Form.Field>

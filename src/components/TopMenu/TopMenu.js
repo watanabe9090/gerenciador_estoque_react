@@ -24,6 +24,7 @@ const TopMenu = () => {
         active={activeItem === 'grupo'}
         onClick={handleItemClick}
         content='Grupo'
+        href='/grupo'
       />
       <Menu.Item 
         name='proposta'

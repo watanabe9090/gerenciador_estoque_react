@@ -53,6 +53,10 @@ import UsuarioPage from './pages/Usuarios/index';
 
 import NotFoundPage from './pages/NotFound/NotFoundPage';
 import VendaPage from './pages/Venda/Venda';
+import VendaCadastroPage from './pages/VendaCadastro/VendaCadastro';
+
+
+import GrupoPage from './pages/Grupo/Grupo';
 
 function App() {
   return (
@@ -91,11 +95,13 @@ function App() {
             <Route path="/itens_estocados/detalhes/:id" exact component={ItemEstocadoDetalhes} />
 
             <Route path="/locais" exact component={LocalPage} />
+            <Redirect path="/locais/redirect" to="/locais" />
             <Route path="/locais/cadastro" exact component={LocalCadastroPage} />
             <Route path="/locais/:id" exact component={LocalAlteracaoPage} />
             <Route path="/locais/detalhes/:id" exact component={LocalDetalhesPage} />
 
             <Route path="/marcas" exact component={MarcaPage} />
+            <Redirect path="/marcas/redirect" to="/marcas" />
             <Route path="/marcas/cadastro" exact component={MarcaCadastroPage} />
             <Route path="/marcas/:id" exact component={MarcaAlteracaoPage} />
             <Route path="/marcas/detalhes/:id" exact component={MarcaDetalhesPage} />
@@ -105,13 +111,16 @@ function App() {
             <Route path="/setores/:id" exact component={SetorAlteracaoPage} />
             <Route path="/setores/detalhes/:id" exact component={SetorDetalhesPage} />
 
-            <Route path="/vendas/cadastro" exact component={VendaPage} />
+            <Route path="/vendas/cadastro" exact component={VendaCadastroPage} />
+            <Route path="/vendas" exact component={VendaPage} />
 
             <Route path="/recebimentos" exact component={RecebimentoPage} />
             <Route path="/usuarios" exact component={UsuarioPage} />
 
             <Route path="/info/proposta" exact component={PropostaPage} />
             <Route path="/info/ajuda" exact component={AjudaPage} />
+
+            <Route path="/grupo" exact component={GrupoPage} />
 
             <Route path="*" exact component={NotFoundPage} />
           </Switch>

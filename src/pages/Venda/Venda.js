@@ -1,25 +1,40 @@
-import React, {useState, useEffect} from 'react';
-import { Button, Form, Table } from 'semantic-ui-react';
-import ClienteSelector from './ClienteSelector';
-import {VendaTabela} from './VendaTabela';
+import React, { useState, useEffect } from 'react';
 
-const Venda = () => {
-  const [clienteId, setClieteId] = useState(-1);
-  const [itensVendidos, setItensVendidos] = useState([]);
+import ListagemHeader from '../../components/Listagem/ListagemHeader/ListagemHeader';
+import ListagemBody from '../../components/Listagem/ListagemBody/ListagemBody';
+import { Button } from 'semantic-ui-react';
+import axios from 'axios';
+
+const Venda = () => { 
+  const [vendas, setVendas] = useState([]);
   
-  function handleSubmit(event) {
-    event.preventDefault();
-    
-  }
-  
+  const headerRow = ['Cliente', 'Valor', 'Data de Expedição', 'Opções'];
+	const renderBodyRow = ({id, valor, cliente, dataCadastro}, index) => ({
+		key: id,
+		cells: [
+			`${cliente.cpf} - ${cliente.nome} ${cliente.sobrenome}` || '',
+            `R$: ${valor.toFixed(2)}` || '',
+            dataCadastro || '',
+			<td><Button color="green" href={`/vendas/${id}`}>Detalhes</Button></td>
+		],
+	})
+
+  useEffect(() => {
+      axios.get('http://localhost:8080/vendas/')
+      .then(response => {
+          setVendas(response.data.content)
+          console.log(response.data.content)
+        }); 
+      
+  }, []);
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <ClienteSelector />
-      <VendaTabela />
-      <Button primary submit>Realizar Venda</Button>
-    </Form>
+    <React.Fragment>
+      <ListagemHeader icon='shopping cart' content='Vendas' />
+      <ListagemBody header={headerRow} renderBodyRow={renderBodyRow} tableData={vendas}/>
+    </React.Fragment>
   );
+
 }
 
 export default Venda;

@@ -12,6 +12,7 @@ const InputInfoDataFabricacao = <InputInfo label='Data de Fabricação' popup='D
 const InputInfoDataVencimento = <InputInfo label='Data de Vencimento' popup='Data de Vencimento da mercadoria'/>
 const InputInfoPrecoCompra = <InputInfo label='Preço de Compra' popup='Preço para a compra da mercadoria provida pelos fornecedores'/>
 const InputInfoPrecoVenda = <InputInfo label='Preço de Venda' popup='Preço em que a mercadoria e vendida no estabelecimento'/>
+const InputInfoQuantidade = <InputInfo label='Quantidade Inicial' popup='Quantidade já presente no estoque'/>
 const InputInfoDescricao = <InputInfo label='Descrição' popup='Descrição detalhada sobre a mercadoria(Opcional)'/>
 const InputInfoDescricaoReduzida = <InputInfo label='Descrição Reduzida' popup='Descrição Reduzida que aparecerá nas listagens'/>
 
@@ -27,6 +28,7 @@ export {
   InputInfoDataVencimento,
   InputInfoPrecoCompra,
   InputInfoPrecoVenda,
+  InputInfoQuantidade,
   InputInfoDescricao,
   InputInfoDescricaoReduzida
 };

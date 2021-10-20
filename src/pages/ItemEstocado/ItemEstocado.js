@@ -14,11 +14,11 @@ const ItemEstocado = () => {
   const renderBodyRow = ({id, mercadoria, precoCompra, precoVenda, lote, setor}, index) => ({
     key: id,
     cells: [
-      mercadoria.nome,
-      mercadoria.marca.nome,
+      mercadoria.nome || '',
+      mercadoria.marca.nome || '',
       <ListagemBodyPrecos compra={precoCompra} venda={precoVenda} unidade={mercadoria.unidade}/>,
       <ListagemBodyLote fabricacao={lote.dataFabricacao} vencimento={lote.dataVencimento} />,
-      setor.nome,
+      setor.nome || '',
       <ListagemBodyOpcoes path='/itens_estocados' id={id} />
     ]
   });
@@ -30,7 +30,7 @@ const ItemEstocado = () => {
 
   return (
     <React.Fragment>
-      <ListagemHeader icon='' content='Mercadorias'/>
+      <ListagemHeader icon='tags' content='Mercadorias'/>
       <ListagemBody header={headerRow} renderBodyRow={renderBodyRow} tableData={itensEstocados} />
     </React.Fragment>
   );
