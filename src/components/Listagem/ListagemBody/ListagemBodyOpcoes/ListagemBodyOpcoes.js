@@ -16,7 +16,7 @@ const Opcoes = (props) => {
       />
       <Popup 
         content='Inativar Registro' 
-        trigger={<Button inverted color='red' icon='delete' onClick={() => setOpen(true)}/>} 
+        trigger={<Button style={{pointerEvents: "none", opacity: "0.5"}} inverted color='red' icon='delete' onClick={() => setOpen(true)}/>} 
       />
       
       <Modal 

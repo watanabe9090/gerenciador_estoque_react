@@ -2,16 +2,27 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 import { Form } from 'semantic-ui-react';
 
-import Endereco from '../../components/Endereco';
-import Contato from '../../components/Contato';
+import Endereco from '../../components/Endereco/Endereco';
+import Contato from '../../components/Contato/Contato';
 import FormularioHeader from '../../components/Formulario/FormularioHeader/FormularioHeader';
 
 import genderOptions from '../../util/genderOptions';
 import apiColaboradores from '../../service/individuals/apiColaboradores';
+import  {
+  InputInfoNome,
+  InputInfoSobrenome,
+  InputInfoSexo,
+  InputInfoCpf,
+  InputInfoDataNascimento
+} from '../../domain_files/Colaborador/ColaboradorInputInfo';
 
 const CadastroColaborador = () => {
 	const history = useHistory();
 	const [colaborador, setColaborador] = useState({
+		nome: '',
+		sobrenome: '',
+		cpf: '',
+		dataNascimento: '',
 		sexo: genderOptions[0].value,
 		endereco:{}, 
 		contato:{}
@@ -26,6 +37,7 @@ const CadastroColaborador = () => {
 		event.preventDefault();
 		apiColaboradores.post({...colaborador})
 			.then(response => console.log(response));
+		console.log(colaborador)
 		history.push('/colaboradores');
 	}
 
@@ -40,14 +52,14 @@ const CadastroColaborador = () => {
 		<Form.Group widths='equal'>
 		<Form.Input 
 			name='nome'
-			label='Nome' 
+			label={InputInfoNome} 
 			placeholder='Alberto'
 			value={colaborador.nome}
 			onChange={handleInputs} 
 		/>
 		<Form.Input 
 			name='sobrenome' 
-			label='Sobrenome' 
+			label={InputInfoSobrenome} 
 			placeholder='Pereira' 
 			value={colaborador.sobrenome}
 			onChange={handleInputs}
@@ -55,7 +67,7 @@ const CadastroColaborador = () => {
 		<Form.Select
 			name='sexo'
 			selection
-			label='Sexo'
+			label={InputInfoSexo}
 			options={genderOptions}
 			onChange={(event, data) => setColaborador({...colaborador, sexo:data.value})}
 			defaultValue={genderOptions[0].value}
@@ -64,14 +76,14 @@ const CadastroColaborador = () => {
 		<Form.Group widths='equal'>
 		<Form.Input 
 			name='cpf'
-			label='CPF' 
+			label={InputInfoCpf}
 			placeholder='Alberto'
 			value={colaborador.cpf}
 			onChange={handleInputs} 
 		/>
     <Form.Input
       name='dataNascimento'
-      label="Data de Nascimento"
+      label={InputInfoDataNascimento}
       value={colaborador.dataNascimento}
       onChange={handleInputs}
     >

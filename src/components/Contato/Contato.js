@@ -28,7 +28,7 @@ const Contato = (props) => {
       width='6'
       name='email'
       label={InputInfoEmail}
-      placeholder='Ex: joanadark@hotmail.com'
+      placeholder='Ex: seujoaquim@hotmail.com'
       value={contato.email}
       onChange={handleInputs} 
       />

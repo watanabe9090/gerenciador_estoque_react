@@ -1,13 +1,17 @@
 import React from 'react';
 import { Menu, Icon } from 'semantic-ui-react';
 
+const style = {
+  textDecoration: 'none'
+};
+
 const SideMenu = () => {
   return (
     <React.Fragment>
-      <Menu vertical >
+      <Menu vertical  >
         <Menu.Item>
-        <Menu.Header href='/clientes'>
-          <Icon name='address book'/>
+        <Menu.Header  href='/clientes'>
+          <Icon  name='address book'/>
           Clientes
         </Menu.Header>
         <Menu.Menu>
@@ -112,7 +116,7 @@ const SideMenu = () => {
 					</Menu.Menu>
 				</Menu.Item>
 
-        <Menu.Item>
+        <Menu.Item style={{pointerEvents: "none", opacity: "0.5"}}>
         <Menu.Header href='/recebimentos'>
           <Icon name='boxes' />
           Recebimentos
@@ -125,7 +129,7 @@ const SideMenu = () => {
         </Menu.Menu>
 				</Menu.Item>
 
-        <Menu.Item>
+        <Menu.Item style={{pointerEvents: "none", opacity: "0.5"}}>
         <Menu.Header href='/recebimentos'>
           <Icon name='dolly' />
           Transeferências
@@ -138,9 +142,9 @@ const SideMenu = () => {
         </Menu.Menu>
 				</Menu.Item>
 
-        <Menu.Item>
+        <Menu.Item style={{pointerEvents: "none", opacity: "0.5"}}> 
         <Menu.Header href='/info/ajuda'>
-          <Icon name='question circle'/>
+          <Icon name='question circle'  />
           Ajuda
         </Menu.Header>
         <Menu.Menu>

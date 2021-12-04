@@ -3,10 +3,11 @@ import React, {useEffect, useState} from "react";
 import useDynamicRefs from 'use-dynamic-refs';
 import { Button, Container, Dropdown, Form, Input, Label, Modal, Select, Tab, Table } from "semantic-ui-react";
 import apiClientes from "../../service/individuals/apiClientes";
+import { useHistory } from "react-router";
 
 const VendaCadastro = () => {
+    const history = useHistory();
     const [mercadorias, setMercadorias] = useState([]);
-    const [getRef, setRef] = useDynamicRefs();
     // Modal
     const [open, setOpen] = useState(false);
 
@@ -34,7 +35,7 @@ const VendaCadastro = () => {
         axios.get('http://localhost:8080/itens_estocados/list')
         .then((response) => {
             const data = response.data.map(m => {
-                return {...m,  solicitada: 0, input: 0}
+                return {...m, solicitada: 0}
             });
             setMercadorias(data);
         })
@@ -42,14 +43,23 @@ const VendaCadastro = () => {
     }, []);
 
     function adicionarMercadoria(event)  {
-        console.log(event.target.id);
-        const input = getRef(`${event.target.id}`);
-        console.log(input); 
         const mercadoriasTmp = mercadorias.slice(0);
         mercadoriasTmp.forEach((m) => {
             if(m.id == event.target.id) {
-                m.quantidade -= 1;
-                m.solicitada += 1;
+                const inputElement = document.getElementById(`i_${event.target.id}`);
+                const input = inputElement.value;
+                if(input > m.quantidade ) {
+                    alert("Quantidade maior do que a estocada !!!");
+                } else if(input <= 0 || input == NaN || input == '')  {
+                    alert("Quantidade inválida")
+                }
+                else {
+                    m.quantidade = Number.parseInt(m.quantidade) - Number.parseInt(input);
+                    m.solicitada += Number.parseInt(input);
+                    inputElement.value = 0;
+                }
+                
+                
             }
         })
         setMercadorias(mercadoriasTmp);
@@ -76,12 +86,20 @@ const VendaCadastro = () => {
             return {itemEstocadoId: m.id, quantidade: m.solicitada}
         })
         console.log(itensVendidos, valor);
-        axios.post('http://localhost:8080/vendas', {itensVendidos: itensVendidos, clienteId: clienteId, valor: valor});
+        if(clienteId == -1) {
+            alert("Selecione um Cliente");
+        } else if(itensVendidos.length == 0) {
+            alert("Venda Vazia");
+        } else {
+            axios.post('http://localhost:8080/vendas', {itensVendidos: itensVendidos, clienteId: clienteId, valor: valor});
+            history.push('/vendas');
+        }
     }
 
     function handleInput(event) {
         const index = event.target.id;
         console.log(index);
+
         // setMercadorias([...mercadorias, mercadorias[index]);
         // (e) => setMercadorias([...mercadorias, mercadorias[e.target.dataset.index].input = e.target.value])
     }
@@ -91,14 +109,14 @@ const VendaCadastro = () => {
                 open={open}
                 onClose={() => setOpen(false)}
                 onOpen={() =>  setOpen(true)}
-                trigger={<Button>Adicionar Mercadoria</Button>}
+                trigger={<Button primary>Adicionar Mercadoria</Button>}
             >
                 <Modal.Header>Adicionar Mercadorias</Modal.Header>
-                <Modal.Content>
-                    <Input placeholder='10299203' />
-                    <Select compact options={opcoesPesquisa} defaultValue={opcoesPesquisa[0].value} />
-                    <Button primary>Pesquisar Mercadorais</Button>
-                </Modal.Content>
+                {/* <Modal.Content> */}
+                    {/* <Input placeholder='10299203' /> */}
+                    {/* <Select compact options={opcoesPesquisa} defaultValue={opcoesPesquisa[0].value} /> */}
+                    {/* <Button primary>Pesquisar Mercadorais</Button> */}
+                {/* </Modal.Content> */}
                 <Modal.Description>
                     <Table celled textAlign="center">
                         <Table.Header>
@@ -106,7 +124,7 @@ const VendaCadastro = () => {
                                 <Table.Cell  width='3'>Código</Table.Cell>
                                 <Table.Cell width='6'>Nome</Table.Cell>
                                 <Table.Cell width='3'>Preço de Venda</Table.Cell>
-                                <Table.Cell width='2'>Quantidade Estocada</Table.Cell>
+                                <Table.Cell width='2'>Quantidade Selecionada</Table.Cell>
                                 <Table.Cell width='2'>Opções</Table.Cell>
                             </Table.Row>
                         </Table.Header>
@@ -117,7 +135,7 @@ const VendaCadastro = () => {
                                 <Table.Cell>{m.precoVenda}</Table.Cell>
                                 <Table.Cell>{m.quantidade}</Table.Cell>
                                 <Table.Cell>
-                                    <Input  id={m.id} onChange={handleInput} value={m.input} placeholder="10" />
+                                    <Input  id={`i_${m.id}`}  onChange={(event) => event.target.value=event.target.value.replace(/[^0-9]/g,'') } />
                                     <Button id={m.id} onClick={adicionarMercadoria}>Adicionar</Button>
                                 </Table.Cell>
                             </Table.Row>)}

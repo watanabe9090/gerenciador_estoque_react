@@ -6,7 +6,7 @@ import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 
 import SideMenu from './components/SideMenu/SideMenu';
 import TopMenu from './components/TopMenu/TopMenu';
-import Footer from './components/Footer/Footer';
+import Footer from './Components/Shared/Footer';
 
 import AjudaPage from './pages/Ajuda/Ajuda';
 import PropostaPage from './pages/Proposta/Proposta';
@@ -54,13 +54,13 @@ import UsuarioPage from './pages/Usuarios/index';
 import NotFoundPage from './pages/NotFound/NotFoundPage';
 import VendaPage from './pages/Venda/Venda';
 import VendaCadastroPage from './pages/VendaCadastro/VendaCadastro';
-
+import VendaDetalhePage from './pages/VendaDetalhes/VendaDetalhes';
 
 import GrupoPage from './pages/Grupo/Grupo';
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter forceRefresh={true}>
       <div className="App">
         <div className="TopMenu">
           <TopMenu />
@@ -70,7 +70,7 @@ function App() {
         </div>
         <div className="Content">
           <Segment>
-          <Switch>
+          <Switch >
             <Route path="/" exact component={HomePage} />
 
             <Route path="/clientes" exact component={ClientePage} />
@@ -111,6 +111,7 @@ function App() {
             <Route path="/setores/:id" exact component={SetorAlteracaoPage} />
             <Route path="/setores/detalhes/:id" exact component={SetorDetalhesPage} />
 
+            <Route path="/vendas/detalhes/:id" exact component={VendaDetalhePage} />
             <Route path="/vendas/cadastro" exact component={VendaCadastroPage} />
             <Route path="/vendas" exact component={VendaPage} />
 

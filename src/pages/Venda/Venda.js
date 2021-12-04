@@ -12,15 +12,15 @@ const Venda = () => {
 	const renderBodyRow = ({id, valor, cliente, dataCadastro}, index) => ({
 		key: id,
 		cells: [
-			`${cliente.cpf} - ${cliente.nome} ${cliente.sobrenome}` || '',
+			`${cliente.cpf || ''} - ${cliente.nome || ''} ${cliente.sobrenome || ''}` || '',
             `R$: ${valor.toFixed(2)}` || '',
             dataCadastro || '',
-			<td><Button color="green" href={`/vendas/${id}`}>Detalhes</Button></td>
+			<td><Button color="green" href={`/vendas/detalhes/${id}`}>Detalhes</Button></td>
 		],
 	})
 
   useEffect(() => {
-      axios.get('http://localhost:8080/vendas/')
+      axios.get('http://localhost:8080/vendas')
       .then(response => {
           setVendas(response.data.content)
           console.log(response.data.content)

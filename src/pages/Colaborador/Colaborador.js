@@ -15,12 +15,12 @@ const Colaborador = () => {
 	const renderBodyRow = ({id, nome, sobrenome, cpf, sexo, contato}, index) => ({
 		key: id,
 		cells: [
-			nome + ' ' + sobrenome,
-			contato.email,
-			cpf,
-			sexos[sexo],
-			<ListagemBodyTelefones fixo={contato.telefoneFixo} celular={contato.telefoneCelular} />,
-			<ListagemBodyOpcoes path='/colaboradores' id={id} />
+			nome + ' ' + sobrenome || '',
+			contato.email || '',
+			cpf || '',
+			sexos[sexo] || '',
+			<ListagemBodyTelefones fixo={contato.telefoneFixo} celular={contato.telefoneCelular} />|| '',
+			<ListagemBodyOpcoes path='/colaboradores' id={id} />|| ''
 		]
 	});
 

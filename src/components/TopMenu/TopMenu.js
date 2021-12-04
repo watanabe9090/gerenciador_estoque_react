@@ -12,27 +12,29 @@ const TopMenu = () => {
           SwitfLog
         </Label>
       </Menu.Item>
+      <Menu.Item 
+        name='home'
+        active={activeItem === 'home'}
+        onClick={handleItemClick}
+        content='Home'
+        href='/'
+      />
       <Menu.Item
         name='documentacao'
         active={activeItem === 'documentacao'}
         onClick={handleItemClick}
         content='Documentação'
-        href='https://google.com'
+        href='https://drive.google.com/drive/folders/16P2SGiu8JUUBuI5UBk5lZLezqe5uvPNa?usp=sharing'
       />
-      <Menu.Item 
-        name='grupo'
-        active={activeItem === 'grupo'}
-        onClick={handleItemClick}
-        content='Grupo'
-        href='/grupo'
-      />
+       
+      {/*
       <Menu.Item 
         name='proposta'
         active={activeItem === 'proposta'}
         onClick={handleItemClick}
         content='Proposta'
         href='/info/proposta'
-      />
+      /> */}
       <Menu.Item
         name='ajuda'
         active={activeItem === 'ajuda'}
