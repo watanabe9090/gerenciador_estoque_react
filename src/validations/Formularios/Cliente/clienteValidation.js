@@ -9,15 +9,26 @@ function validate(values) {
     ok: true
   };
   const {cpf, nome, sobrenome} = values;
-  if(!isCpfValid(cpf)) {
+  if(cpf === '') {
+    errors.cpf = 'Campo vazio';
+    errors.ok = false
+  }
+  else if(!isCpfValid(cpf)) {
     errors.cpf = 'Não é Válido';
     errors.ok = false
   }
-  if(!justLetters.test(nome)) {
+  if(nome === '') {
+    errors.nome = 'Campo vazio';
+    errors.ok = false
+  }
+  else if(!justLetters.test(nome)) {
     errors.nome = 'Nome Inválido';
     errors.ok = false
   }
-  if(!justLetters.test(sobrenome)) {
+  if(sobrenome === '') {
+    errors.sobrenome = 'Campo vazio';
+    errors.ok = false
+  }else if(!justLetters.test(sobrenome)) {
     errors.sobrenome = 'Sobrenome Inválido';
     errors.ok = false
   }

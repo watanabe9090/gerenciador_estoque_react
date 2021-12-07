@@ -23,7 +23,7 @@ const VendaDetalhes = (props) => {
         {field:"Cliente", value: `${venda.cliente.nome} ${venda.cliente.sobrenome}` || ''},
         {field:"CPF do Cliente", value: venda.cliente.cpf || ''},
         {field:"Valor Total: ", value: `R$: ${venda.valor.toFixed(2)}` || ''},
-        {field:"Data de Expedição", value: venda.dataCadastro || ''}
+        {field:"Data de Expedição", value: new Date(venda.dataCadastro).toLocaleString() || ''}
       ];
 
       const headerRowItems = ['Nome', 'Valor Unitário', 'Valor Total'];

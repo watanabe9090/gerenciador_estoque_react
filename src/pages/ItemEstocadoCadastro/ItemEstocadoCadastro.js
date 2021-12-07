@@ -15,12 +15,12 @@ InputInfoPrecoCompra, InputInfoPrecoVenda, InputInfoDescricao, InputInfoDescrica
 
 import { validacao } from '../../validations/Formularios/ItemEstocado/itemEstocadoValidations';
 import Mensagem from '../../components/Mensagem/Mensagem';
+import { useHistory } from 'react-router';
 
 
 const ItemEstocadoCadastro = () => {
-  const [errors, setErrors] = useState({
-
-  });
+  const [errors, setErrors] = useState({});
+  const history = useHistory();
   const [fornecedores, setFornecedores] = useState();
   const [currentFornecedor, setCurrentFornecedor] = useState(-1);
   const [locais, setLocais] = useState([]);
@@ -104,7 +104,10 @@ const ItemEstocadoCadastro = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     apiItensEstocados.post({...form})
-    .then(response => console.log(response))
+    .then(response => {
+      history.push('/itens_estocados');
+      console.log(response)
+    })
     console.log(form);
   }
 

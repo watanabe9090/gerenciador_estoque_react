@@ -9,7 +9,7 @@ const TopMenu = () => {
     <Menu >
       <Menu.Item>
         <Label size='huge' color='black' href='/'>
-          SwitfLog
+          SwiftLog
         </Label>
       </Menu.Item>
       <Menu.Item 
