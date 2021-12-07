@@ -6,7 +6,7 @@ import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 
 import SideMenu from './components/SideMenu/SideMenu';
 import TopMenu from './components/TopMenu/TopMenu';
-import Footer from './Components/Shared/Footer';
+import Footer from './components/Footer/index';
 
 import AjudaPage from './pages/Ajuda/Ajuda';
 import PropostaPage from './pages/Proposta/Proposta';
